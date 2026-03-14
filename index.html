@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheriff's ATS Resume Checker</title>
+    
+    <title>Sheriff's ATS - Best ATS Friendly Resume Checker for Students</title>
+    
+    <meta name="description" content="Use Sheriff's ATS, a 100% free ATS friendly resume checker. Analyze your resume score, match with job descriptions, and pass the Applicant Tracking System easily.">
+    
+    <meta name="keywords" content="ATS friendly, Sheriff ATS, resume checker, free ATS scanner, job match, resume score, student resume tool">
+    <meta name="author" content="Sheriff">
+
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -23,14 +30,14 @@
     <div id="p1" class="page active">
         <div class="hero">
             <div class="student-badge">100% FREE FOR STUDENTS</div>
-            <h1>Upload Your Resume</h1>
-            <p>ATS Friendly Resume Checker for Students .</p>
+            <h1>Make Your Resume <span style="color: #00e5ff;">ATS Friendly</span></h1>
+            <p>Optimize your resume for free with Sheriff's ATS Friendly Checker.</p>
         </div>
         <div class="upload-flex">
             <div class="drop-zone" id="dropZone">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <h3 id="fn1">Upload Resume</h3>
-                <p> PDF ONLY</p>
+                <p>PDF ONLY</p>
                 <input type="file" id="fileInput" hidden>
             </div>
             <div id="previewBox" class="preview-card">
@@ -39,15 +46,15 @@
                 <div id="textPreview"></div>
             </div>
         </div>
-        <button class="btn-primary" id="analyzeBtn">Analyze Resume</button>
+        <button class="btn-primary" id="analyzeBtn">Analyze ATS Score</button>
     </div>
 
     <div id="p2" class="page">
         <div class="audit-head">
             <div class="score-ring"><span id="finalScore">0</span>%</div>
             <div class="audit-info">
-                <h2>ATS Score</h2>
-                <p></p>
+                <h2>ATS Friendly Score Report</h2>
+                <p>Detailed analysis of your resume formatting and content.</p>
             </div>
         </div>
         
@@ -66,15 +73,27 @@
                     <input type="file" id="jdResume" hidden>
                 </div>
                 <div class="jd-editor-shell">
-                    <div class="editor-header">PASTE  JOB DESCRIPTION</div>
-                    <textarea id="jdArea" placeholder="// Paste Job Description here..."></textarea>
+                    <div class="editor-header">PASTE JOB DESCRIPTION</div>
+                    <textarea id="jdArea" placeholder="// Paste Job Description here to check ATS compatibility..."></textarea>
                 </div>
-                <button class="btn-primary" id="matchBtn">Analyze</button>
+                <button class="btn-primary" id="matchBtn">Check ATS Match</button>
             </div>
             <div id="matchResult" class="jd-output-side hidden"></div>
         </div>
     </div>
 </div>
+
+<footer style="margin-top: 60px; padding: 40px 20px; text-align: center; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(0, 229, 255, 0.2);">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h2 style="color: #00e5ff; margin-bottom: 15px;">Why is an ATS Friendly Resume Important?</h2>
+        <p style="color: #bbb; line-height: 1.6; font-size: 0.95rem;">
+            Most companies use an <b>Applicant Tracking System</b> (ATS) to filter resumes. 
+            Sheriff's ATS tool ensures your resume is <b>ATS friendly</b> by scanning for key structural elements and keywords. 
+            Our free <b>ATS resume checker</b> helps you optimize your score and land more interviews.
+        </p>
+    </div>
+    <p style="margin-top: 30px; color: #555; font-size: 0.8rem;">&copy; 2026 Sheriff ATS | Free Student Tools</p>
+</footer>
 
 <script src="script.js"></script>
 </body>
