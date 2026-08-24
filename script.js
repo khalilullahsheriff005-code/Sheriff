@@ -1,111 +1,76 @@
-// Setup PDF.js
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-const dropZone = document.getElementById('drop-zone');
-const fileInput = document.getElementById('file-input');
-const errorBox = document.getElementById('error');
-const loader = document.getElementById('loader');
-const resultBox = document.getElementById('result');
+const fileInput = document.getElementById('file');
+const drop = document.getElementById('drop');
+const err = document.getElementById('err');
+const load = document.getElementById('load');
+const out = document.getElementById('out');
 
-function showError(msg){
-  errorBox.style.display = 'block';
-  errorBox.innerText = msg;
-  loader.classList.add('hidden');
-  resultBox.classList.add('hidden');
-  fileInput.value = '';
+function showErr(msg){
+  err.style.display='block';
+  err.innerText = msg;
+  load.style.display='none';
+  out.style.display='none';
+  fileInput.value='';
 }
-function clearError(){
-  errorBox.style.display = 'none';
-  errorBox.innerText = '';
-}
+function hideErr(){ err.style.display='none'; }
 
-async function readPDF(file){
-  const buffer = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument(buffer).promise;
-  let fullText = '';
-  for(let i=1; i<= pdf.numPages; i++){
-    const page = await pdf.getPage(i);
-    const textContent = await page.getTextContent();
-    const pageText = textContent.items.map(item => item.str).join(' ');
-    fullText += pageText + ' ';
-  }
-  return fullText.toLowerCase();
-}
+drop.addEventListener('click', ()=> fileInput.click());
 
-function isResume(text){
-  // A real resume MUST have these
-  const required = ['experience', 'education', 'skills'];
-  let count = 0;
-  required.forEach(word => { if(text.includes(word)) count++; });
-
-  // If no resume keywords at all, it's NOT a resume
-  if(count === 0) return false;
-  if(text.length < 150) return false; // too small
-  if(!text.includes('@') &&!text.includes('phone') &&!text.includes('email')) {
-    // If no contact info and low keywords, reject
-    if(count < 2) return false;
-  }
-  return true;
-}
-
-async function handleFile(file){
-  clearError();
+fileInput.addEventListener('change', async (e)=>{
+  const file = e.target.files[0];
   if(!file) return;
 
-  // 1. FILE TYPE CHECK - ONLY PDF
+  hideErr();
+
+  // STEP 1: CHECK EXTENSION
   if(!file.name.toLowerCase().endsWith('.pdf')){
-    showError('❌ Only PDF resume allowed! You uploaded: ' + file.name);
-    return;
-  }
-  if(file.type!== 'application/pdf' && file.type!== ''){
-    showError('❌ Invalid file type. Please upload PDF resume only.');
-    return;
-  }
-  if(file.size > 5*1024*1024){
-    showError('❌ File too large. Max 5MB.');
+    showErr('ERROR: Only PDF resume allowed. You uploaded: ' + file.name);
     return;
   }
 
-  loader.classList.remove('hidden');
-  resultBox.classList.add('hidden');
+  load.style.display='block';
+  out.style.display='none';
 
   try{
-    const text = await readPDF(file);
+    const data = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument(data).promise;
+    let text = '';
+    for(let i=1; i<=pdf.numPages; i++){
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map(s=>s.str).join(' ') + ' ';
+    }
+    text = text.toLowerCase();
 
-    // 2. CONTENT CHECK - IS IT REALLY A RESUME?
-    if(!isResume(text)){
-      showError('❌ "' + file.name + '" is NOT a resume! We scanned content and found no resume data (No Skills/Education/Experience). Please upload only your resume PDF.');
+    // STEP 2: CHECK IF IT IS REALLY A RESUME
+    const hasResumeWord = text.includes('resume') || text.includes('curriculum') || text.includes('cv') || text.includes('experience') || text.includes('education') || text.includes('skills');
+
+    if(text.length < 100 ||!hasResumeWord){
+      showErr('ERROR: "' + file.name + '" is NOT a resume. This PDF has no resume content. Please upload only your resume PDF.');
       return;
     }
 
-    // 3. IF IT IS RESUME, CALCULATE SCORE
-    loader.classList.add('hidden');
-    resultBox.classList.remove('hidden');
+    // STEP 3: IT IS A REAL RESUME - CALCULATE
+    load.style.display='none';
+    out.style.display='block';
 
-    let score = 50;
-    let checks = [];
-
-    if(text.includes('@')){ score+=10; checks.push('✅ Email found'); } else checks.push('❌ Email missing');
-    if(text.match(/[6-9][0-9]{9}/)){ score+=10; checks.push('✅ Phone found'); } else checks.push('❌ Phone missing');
-    if(text.includes('skills')){ score+=10; checks.push('✅ Skills found'); } else checks.push('⚠️ Add Skills section');
-    if(text.includes('experience')){ score+=10; checks.push('✅ Experience found'); } else checks.push('⚠️ Add Experience');
-    if(text.includes('education')){ score+=10; checks.push('✅ Education found'); } else checks.push('⚠️ Add Education');
+    let score = 40;
+    let list = [];
+    if(text.includes('@')){ score+=15; list.push('✓ Email found'); } else list.push('✗ Email missing');
+    if(text.match(/[0-9]{10}/)){ score+=15; list.push('✓ Phone found'); } else list.push('✗ Phone missing');
+    if(text.includes('skill')){ score+=10; list.push('✓ Skills found'); } else list.push('✗ Skills missing');
+    if(text.includes('experience') || text.includes('project')){ score+=10; list.push('✓ Experience/Projects found'); }
+    if(text.includes('education')){ score+=10; list.push('✓ Education found'); }
 
     if(score>95) score=95;
 
-    document.getElementById('score').innerText = score + '%';
+    document.getElementById('sc').innerText = score + '%';
     document.getElementById('bar').style.width = score + '%';
-    document.getElementById('bar').style.background = score>80? '#22c55e' : score>60? '#eab308' : '#ef4444';
-    document.getElementById('list').innerHTML = checks.map(c=>`<li>${c}</li>`).join('');
-    document.getElementById('fname').innerText = 'Verified Resume: ' + file.name;
+    document.getElementById('checks').innerHTML = list.join('<br>');
+    document.getElementById('fname').innerText = 'Verified: ' + file.name;
 
-  } catch(err){
-    showError('❌ Cannot read PDF. Upload a valid text-based resume PDF (not scanned image).');
+  }catch(e){
+    showErr('ERROR: Cannot read this PDF. Please upload a normal text PDF resume, not a scanned image.');
   }
-}
-
-dropZone.addEventListener('click', ()=> fileInput.click());
-fileInput.addEventListener('change', (e)=> handleFile(e.target.files[0]));
-dropZone.addEventListener('dragover', (e)=>{ e.preventDefault(); dropZone.style.borderColor='#2563eb'; });
-dropZone.addEventListener('dragleave', ()=>{ dropZone.style.borderColor='#cbd5e1'; });
-dropZone.addEventListener('drop', (e)=>{ e.preventDefault(); dropZone.style.borderColor='#cbd5e1'; handleFile(e.dataTransfer.files[0]); });
+});
