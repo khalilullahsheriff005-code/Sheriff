@@ -4,55 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ResumeFit - Free ATS Resume Checker</title>
-<meta name="description" content="Free ATS Resume Checker - Check ATS score free">
-<meta name="author" content="khalilullahsheriff">
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 </head>
-<body class="bg-[#f8fafc] text-slate-900">
+<body>
 
-<header class="bg-white border-b p-4 flex justify-between items-center sticky top-0 z-50">
-<div class="font-black text-xl">RESUME<span class="text-blue-600">FIT</span></div>
-<div class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">ATS Check</div>
+<header>
+  <h2>RESUME<span>FIT</span></h2>
+  <span class="badge">Free ATS Check</span>
 </header>
 
-<main class="max-w-3xl mx-auto p-6 text-center mt-10">
-<h1 class="text-4xl md:text-5xl font-black mb-3">Free <span class="text-blue-600">ATS Resume</span> Checker</h1>
-<p class="text-slate-500 mb-8">Upload only resume - we verify content then give score</p>
+<div class="container">
+  <h1>Check Your Resume ATS Score</h1>
+  <p class="subtitle">Upload ONLY resume (PDF). We will verify it's a resume, then give score.</p>
 
-<div class="bg-white rounded-2xl shadow-xl p-6 border text-left">
-  <div id="drop-zone" class="drop-zone">
-    <div class="text-3xl mb-2">📄</div>
-    <p class="font-bold">Drop Resume Here or Click to Upload</p>
-    <p class="text-xs text-slate-400 mt-2">Only Resume Files - PDF, DOCX (Max 5MB)</p>
-    <input type="file" id="file-input" hidden accept=".pdf,.docx,.doc">
-  </div>
-
-  <div id="status" class="hidden mt-4 text-center text-sm font-bold p-3 rounded-xl"></div>
-  <p id="error-msg" class="hidden mt-4 text-sm text-red-600 font-bold bg-red-50 border border-red-200 p-3 rounded-xl text-center"></p>
-
-  <div id="result" class="hidden mt-6 border-t pt-6">
-    <h3 class="font-black text-lg">ATS Score: <span id="score" class="text-blue-600">0%</span></h3>
-    <div class="w-full bg-slate-200 rounded-full h-3 mt-3">
-      <div id="score-bar" class="h-3 rounded-full transition-all duration-700" style="width:0%"></div>
+  <div class="card">
+    <div id="drop-zone">
+      <p>📄 Click or Drop Resume Here</p>
+      <span>PDF only - Max 5MB - Resume Only</span>
+      <input type="file" id="file-input" hidden accept=".pdf">
     </div>
-    <div id="checks" class="mt-4 space-y-2 text-sm"></div>
-    <p id="file-name" class="text-xs text-slate-400 mt-4 mono"></p>
+
+    <div id="loader" class="hidden">Checking resume...</div>
+    <div id="error"></div>
+
+    <div id="result" class="hidden">
+      <h3>ATS Score: <span id="score">0%</span></h3>
+      <div class="progress"><div id="bar"></div></div>
+      <ul id="list"></ul>
+      <p id="fname"></p>
+    </div>
   </div>
 </div>
-</main>
 
-<footer class="footer">
-  <div class="footer-line">
-    <div class="line"></div>
-    <span>DEVELOPER</span>
-    <div class="line"></div>
+<footer>
+  <div class="footer-content">
+    <p class="dev">2026@khalilullahsheriff</p>
+    <p class="since">Developer: khalilullahsheriff | Since 2026</p>
   </div>
-  <p class="dev-name">2026@khalilullahsheriff</p>
-  <p class="dev-sub">Developed by <b>khalilullahsheriff</b> • Since 2026</p>
-  <p class="copyright">© 2026 ResumeFit</p>
 </footer>
 
 <script src="script.js"></script>
