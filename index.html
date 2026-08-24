@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Sheriff's ATS - Best ATS Friendly Resume Checker for Students</title>
-    
     <meta name="description" content="Use Sheriff's ATS, a 100% free ATS friendly resume checker. Analyze your resume score, match with job descriptions, and pass the Applicant Tracking System easily.">
-    
     <meta name="keywords" content="ATS friendly, Sheriff ATS, resume checker, free ATS scanner, job match, resume score, student resume tool">
     <meta name="author" content="Sheriff">
-
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- === MOBILE RESPONSIVE FIX + AD STYLE === -->
+    <style>
+        * { box-sizing: border-box; }
+        .ad-box { width:100%; min-height:90px; background:rgba(0,229,255,0.05); border:1px dashed #00e5ff; margin:20px 0; display:flex; align-items:center; justify-content:center; color:#00e5ff; border-radius:12px; font-size:14px; }
+        @media (max-width: 768px) {
+            .glass-nav { flex-direction: column !important; padding: 12px !important; gap:8px; }
+            .nav-links { width: 100%; justify-content: space-between !important; }
+            .n-item { font-size: 13px !important; padding: 8px !important; }
+            .n-item span { font-size: 11px; }
+            .container { padding: 12px !important; width: 100% !important; }
+            .upload-flex { flex-direction: column !important; gap:15px !important; }
+            .drop-zone, .preview-card { width: 100% !important; min-width: 100% !important; max-width: 100% !important; }
+            .hero h1 { font-size: 26px !important; line-height: 1.2 !important; }
+            .hero p { font-size: 14px !important; }
+            .audit-head { flex-direction: column !important; text-align: center !important; gap:15px; }
+            .metrics-grid { grid-template-columns: 1fr !important; gap:15px !important; }
+            .jd-sync-ui { flex-direction: column !important; }
+            .jd-input-side, .jd-output-side { width:100% !important; }
+            #pdfPreview { max-width: 100% !important; }
+            .btn-primary { width: 100% !important; }
+        }
+    </style>
+
+    <!-- === MONETAG AUTO AD - INGA UN CODE-A POTU === -->
+    <!-- Monetag la irunthu kidaikura code-a inga paste pannu. Sample keela irukku -->
+    <script src="https://fpyf8.com/88/tag.min.js" data-zone="1234567" async data-cfasync="false"></script>
 </head>
 <body>
 
@@ -33,6 +56,9 @@
             <h1>Make Your Resume <span style="color: #00e5ff;">ATS Friendly</span></h1>
             <p>Optimize your resume for free with Sheriff's ATS Friendly Checker.</p>
         </div>
+
+        <div class="ad-box">Advertisement - Your Earning Starts Here</div>
+
         <div class="upload-flex">
             <div class="drop-zone" id="dropZone">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -47,6 +73,7 @@
             </div>
         </div>
         <button class="btn-primary" id="analyzeBtn">Analyze ATS Score</button>
+        <div class="ad-box">Advertisement</div>
     </div>
 
     <div id="p2" class="page">
@@ -57,7 +84,7 @@
                 <p>Detailed analysis of your resume formatting and content.</p>
             </div>
         </div>
-        
+        <div class="ad-box">Advertisement</div>
         <div class="metrics-grid">
             <div class="m-box core-clr"><h4>Profile Mandatories</h4><div id="coreGrid"></div></div>
             <div class="m-box struct-clr"><h4>Structural Logic</h4><div id="structGrid"></div></div>
@@ -80,6 +107,7 @@
             </div>
             <div id="matchResult" class="jd-output-side hidden"></div>
         </div>
+        <div class="ad-box">Advertisement</div>
     </div>
 </div>
 
@@ -87,12 +115,15 @@
     <div style="max-width: 800px; margin: 0 auto;">
         <h2 style="color: #00e5ff; margin-bottom: 15px;">Why is an ATS Friendly Resume Important?</h2>
         <p style="color: #bbb; line-height: 1.6; font-size: 0.95rem;">
-            Most companies use an <b>Applicant Tracking System</b> (ATS) to filter resumes. 
-            Sheriff's ATS tool ensures your resume is <b>ATS friendly</b> by scanning for key structural elements and keywords. 
-            Our free <b>ATS resume checker</b> helps you optimize your score and land more interviews.
+            Most companies use an <b>Applicant Tracking System</b> (ATS) to filter resumes. Sheriff's ATS tool ensures your resume is <b>ATS friendly</b> by scanning for key structural elements and keywords. Our free <b>ATS resume checker</b> helps you optimize your score and land more interviews.
         </p>
     </div>
-    <p style="margin-top: 30px; color: #555; font-size: 0.8rem;">&copy; 2026 Sheriff ATS | Free Student Tools</p>
+    <p style="margin-top: 20px;">
+      <a href="#" style="color:#00e5ff; margin:0 10px; text-decoration:none;">About</a>
+      <a href="#" style="color:#00e5ff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+      <a href="#" style="color:#00e5ff; margin:0 10px; text-decoration:none;">Contact</a>
+    </p>
+    <p style="margin-top: 20px; color: #555; font-size: 0.8rem;">&copy; 2026 Sheriff ATS | Free Student Tools</p>
 </footer>
 
 <script src="script.js"></script>
