@@ -3,38 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ResumeFit - ATS Checker</title>
+<title>ResuQora - Free ATS Resume Checker</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+<header>
+  <div class="logo">RESU<span>QORA</span></div>
+  <div class="badge">100% Original Brand</div>
+</header>
 
-<div class="top">RESUME<span>FIT</span> - Free ATS Checker</div>
+<main>
+  <h1>Check Resume via <span>ResuQora</span></h1>
+  <p class="sub">World's first ResuQora • Real resume verification • Accurate ATS score</p>
 
-<div class="main">
-  <h1>Free ATS Resume Checker</h1>
-  <p>Upload your resume PDF only</p>
-
-  <div class="box">
-    <div id="drop">
-      <b>Click Here to Upload Resume (PDF Only)</b>
-      <small>We will check if it's a real resume</small>
-      <input type="file" id="file" hidden accept="application/pdf,.pdf">
+  <div class="card">
+    <div id="drop-zone">
+      <div class="icon">✨</div>
+      <b>Drop Your Resume Here</b>
+      <small>PDF only • We verify it's a real resume • Max 5MB</small>
+      <input type="file" id="file-input" hidden accept=".pdf">
     </div>
-    <div id="err"></div>
-    <div id="load">Reading file... please wait</div>
-    <div id="out">
-      <h2>ATS Score: <span id="sc">0%</span></h2>
-      <div class="bar-bg"><div id="bar"></div></div>
+
+    <div id="error-msg" class="hidden"></div>
+
+    <div id="loader" class="hidden">
+      <div class="spin"></div>
+      <p>ResuQora is scanning your resume...</p>
+    </div>
+
+    <div id="result" class="hidden">
+      <div class="score-row">
+        <div class="circle">
+          <svg><circle cx="45" cy="45" r="40"></circle><circle id="bar" cx="45" cy="45" r="40"></circle></svg>
+          <span id="score">0%</span>
+        </div>
+        <div>
+          <h2 id="score-title">Excellent!</h2>
+          <p id="score-sub">ResuQora says ATS Ready!</p>
+          <small id="file-name"></small>
+        </div>
+      </div>
       <div id="checks"></div>
-      <small id="fname"></small>
+      <button onclick="location.reload()" class="reset-btn">Check Another Resume</button>
     </div>
   </div>
-</div>
+</main>
 
 <footer>
-  <p class="d1">2026@khalilullahsheriff</p>
-  <p class="d2">Developer: khalilullahsheriff | Since 2026</p>
+  <div class="footer-line"><span></span><p>DEVELOPER</p><span></span></div>
+  <h4>2026@khalilullahsheriff</h4>
+  <p>Developed by <b>khalilullahsheriff</b> • ResuQora • Since 2026 • 100% Original Brand</p>
 </footer>
 
 <script src="script.js"></script>
