@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khalilullahsheriff005-code.github.io/Sheriff/sitemap.xml
