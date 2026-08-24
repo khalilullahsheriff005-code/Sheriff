@@ -1,128 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheriff's ATS - Best ATS Friendly Resume Checker for Students</title>
-    <meta name="monetag" content="767d0a959326bbc849832518332f999d">
-    <meta name="description" content="Use Sheriff's ATS, a 100% free ATS friendly resume checker. Analyze your resume score, match with job descriptions, and pass the Applicant Tracking System easily.">
-    <meta name="keywords" content="ATS friendly, Sheriff ATS, resume checker, free ATS scanner, job match, resume score, student resume tool">
-    <meta name="author" content="Sheriff">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- === MOBILE RESPONSIVE FIX + AD STYLE === -->
-    <style>
-        * { box-sizing: border-box; }
-        .ad-box { width:100%; min-height:90px; background:rgba(0,229,255,0.05); border:1px dashed #00e5ff; margin:20px 0; display:flex; align-items:center; justify-content:center; color:#00e5ff; border-radius:12px; font-size:14px; }
-        @media (max-width: 768px) {
-            .glass-nav { flex-direction: column !important; padding: 12px !important; gap:8px; }
-            .nav-links { width: 100%; justify-content: space-between !important; }
-            .n-item { font-size: 13px !important; padding: 8px !important; }
-            .n-item span { font-size: 11px; }
-            .container { padding: 12px !important; width: 100% !important; }
-            .upload-flex { flex-direction: column !important; gap:15px !important; }
-            .drop-zone, .preview-card { width: 100% !important; min-width: 100% !important; max-width: 100% !important; }
-            .hero h1 { font-size: 26px !important; line-height: 1.2 !important; }
-            .hero p { font-size: 14px !important; }
-            .audit-head { flex-direction: column !important; text-align: center !important; gap:15px; }
-            .metrics-grid { grid-template-columns: 1fr !important; gap:15px !important; }
-            .jd-sync-ui { flex-direction: column !important; }
-            .jd-input-side, .jd-output-side { width:100% !important; }
-            #pdfPreview { max-width: 100% !important; }
-            .btn-primary { width: 100% !important; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeFit - Free ATS Resume Checker | ATS Resume Check</title>
+<meta name="description" content="ResumeFit - Free ATS Resume Checker. Instant ATS Resume Check & Score. Best free ATS scanner for Naukri, LinkedIn, fresher jobs. Check now in 5 seconds.">
+<meta name="keywords" content="ats resume check, ats resume checker, free ats resume check, check ats score, resume ats check, ats scanner, ats resume scan">
+<meta name="robots" content="index, follow">
+<meta name="author" content="khalilullahsheriff">
+<link rel="canonical" href="https://sheriff1106.github.io/Sheriff/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ResumeFit",
+  "alternateName": "ATS Resume Check",
+  "author": {"@type": "Person", "name": "khalilullahsheriff"},
+  "description": "Free ATS Resume Checker to check ATS score"
+}
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap');
+body{font-family:'Inter', sans-serif}
+</style>
 </head>
-<body>
+<body class="bg-[#f8fafc] text-slate-900">
+<header class="bg-white border-b p-4 flex justify-between items-center">
+<div class="font-black text-xl">RESUME<span class="text-blue-600">FIT</span></div>
+<div class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Free ATS Resume Check</div>
+</header>
 
-<nav class="glass-nav">
-    <div class="logo">SHERIFF'S <span> ATS</span></div>
-    <div class="nav-links">
-        <div class="n-item active" data-tab="p1"><i class="fas fa-home"></i> <span>ATS Check</span></div>
-        <div class="n-item" data-tab="p2" id="nav-report"><i class="fas fa-microchip"></i> <span>Audit</span></div>
-        <div class="n-item" data-tab="p3"><i class="fas fa-sync-alt"></i> <span> ATS + Job Match</span></div>
-    </div>
-</nav>
+<h1 class="sr-only">Free ATS Resume Check - ATS Resume Checker and ATS Scanner</h1>
 
-<div class="container">
-    <div id="p1" class="page active">
-        <div class="hero">
-            <div class="student-badge">100% FREE FOR STUDENTS</div>
-            <h1>Make Your Resume <span style="color: #00e5ff;">ATS Friendly</span></h1>
-            <p>Optimize your resume for free with Sheriff's ATS Friendly Checker.</p>
-        </div>
+<main class="max-w-4xl mx-auto p-6 text-center mt-10">
+<h2 class="text-4xl md:text-5xl font-black mb-4">Free <span class="text-blue-600">ATS Resume</span> Checker</h2>
+<p class="text-slate-500 mb-8">Check your ATS resume score instantly. Best free ATS resume check for freshers.</p>
 
-        <div class="ad-box">Advertisement - Your Earning Starts Here</div>
-
-        <div class="upload-flex">
-            <div class="drop-zone" id="dropZone">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h3 id="fn1">Upload Resume</h3>
-                <p>PDF ONLY</p>
-                <input type="file" id="fileInput" hidden>
-            </div>
-            <div id="previewBox" class="preview-card">
-                <div class="p-status">LIVE PREVIEW</div>
-                <canvas id="pdfPreview"></canvas>
-                <div id="textPreview"></div>
-            </div>
-        </div>
-        <button class="btn-primary" id="analyzeBtn">Analyze ATS Score</button>
-        <div class="ad-box">Advertisement</div>
-    </div>
-
-    <div id="p2" class="page">
-        <div class="audit-head">
-            <div class="score-ring"><span id="finalScore">0</span>%</div>
-            <div class="audit-info">
-                <h2>ATS Friendly Score Report</h2>
-                <p>Detailed analysis of your resume formatting and content.</p>
-            </div>
-        </div>
-        <div class="ad-box">Advertisement</div>
-        <div class="metrics-grid">
-            <div class="m-box core-clr"><h4>Profile Mandatories</h4><div id="coreGrid"></div></div>
-            <div class="m-box struct-clr"><h4>Structural Logic</h4><div id="structGrid"></div></div>
-            <div class="m-box qual-clr"><h4>Content Integrity</h4><div id="qualGrid"></div></div>
-        </div>
-    </div>
-
-    <div id="p3" class="page">
-        <div class="jd-sync-ui">
-            <div class="jd-input-side">
-                <div class="jd-upload-bar" onclick="document.getElementById('jdResume').click()">
-                    <i class="fas fa-file-upload"></i> <span id="fn2">Upload Resume </span>
-                    <input type="file" id="jdResume" hidden>
-                </div>
-                <div class="jd-editor-shell">
-                    <div class="editor-header">PASTE JOB DESCRIPTION</div>
-                    <textarea id="jdArea" placeholder="// Paste Job Description here to check ATS compatibility..."></textarea>
-                </div>
-                <button class="btn-primary" id="matchBtn">Check ATS Match</button>
-            </div>
-            <div id="matchResult" class="jd-output-side hidden"></div>
-        </div>
-        <div class="ad-box">Advertisement</div>
-    </div>
+<div id="checker" class="bg-white rounded-2xl shadow-xl p-8 border">
+<p class="text-slate-400">Your ATS Checker Tool Here...</p>
+<!-- UN CHECKER CODE INGA PASTE PANNU DA -->
 </div>
 
-<footer style="margin-top: 60px; padding: 40px 20px; text-align: center; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(0, 229, 255, 0.2);">
-    <div style="max-width: 800px; margin: 0 auto;">
-        <h2 style="color: #00e5ff; margin-bottom: 15px;">Why is an ATS Friendly Resume Important?</h2>
-        <p style="color: #bbb; line-height: 1.6; font-size: 0.95rem;">
-            Most companies use an <b>Applicant Tracking System</b> (ATS) to filter resumes. Sheriff's ATS tool ensures your resume is <b>ATS friendly</b> by scanning for key structural elements and keywords. Our free <b>ATS resume checker</b> helps you optimize your score and land more interviews.
-        </p>
-    </div>
-    <p style="margin-top: 20px;">
-      <a href="#" style="color:#00e5ff; margin:0 10px; text-decoration:none;">About</a>
-      <a href="#" style="color:#00e5ff; margin:0 10px; text-decoration:none;">Privacy Policy</a>
-      <a href="#" style="color:#00e5ff; margin:0 10px; text-decoration:none;">Contact</a>
-    </p>
-    <p style="margin-top: 20px; color: #555; font-size: 0.8rem;">&copy; 2026 Sheriff ATS | Free Student Tools</p>
+<section class="text-left mt-16 bg-white p-6 rounded-xl">
+<h3 class="font-bold text-lg mb-2">Why Use ResumeFit for ATS Resume Check?</h3>
+<p class="text-sm text-slate-600">ResumeFit is the best free ats resume check tool. Our ats resume checker scans your resume like Naukri, LinkedIn recruiters. Get your ats score, fix errors, get hired faster.</p>
+</section>
+</main>
+
+<!-- UPDATED FOOTER -->
+<footer class="text-center p-8 mt-10 border-t bg-white">
+  <p class="font-bold text-slate-800 text-sm">Developer : khalilullahsheriff</p>
+  <p class="text-xs text-slate-500 mt-2">Since : 2026</p>
+  <p class="text-[11px] text-slate-400 mt-3">© 2026 ResumeFit - Best Free ATS Resume Check Tool</p>
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>
