@@ -1,76 +1,114 @@
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-const fileInput = document.getElementById('file');
-const drop = document.getElementById('drop');
-const err = document.getElementById('err');
-const load = document.getElementById('load');
-const out = document.getElementById('out');
+const fileInput = document.getElementById('file-input');
+const drop = document.getElementById('drop-zone');
+const err = document.getElementById('error-msg');
+const load = document.getElementById('loader');
+const res = document.getElementById('result');
 
-function showErr(msg){
-  err.style.display='block';
-  err.innerText = msg;
-  load.style.display='none';
-  out.style.display='none';
-  fileInput.value='';
+drop.addEventListener('click', () => fileInput.click());
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.style.borderColor='#7c3aed'; });
+drop.addEventListener('dragleave', () => drop.style.borderColor='#cbd5e1');
+drop.addEventListener('drop', e => { e.preventDefault(); handle(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', e => handle(e.target.files[0]));
+
+function showErr(m){
+  err.textContent = m;
+  err.classList.remove('hidden');
+  load.classList.add('hidden');
+  res.classList.add('hidden');
+  fileInput.value = '';
 }
-function hideErr(){ err.style.display='none'; }
 
-drop.addEventListener('click', ()=> fileInput.click());
+async function getText(file){
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument(buf).promise;
+  let text = '';
+  const pages = Math.min(pdf.numPages, 4);
+  for(let i=1;i<=pages;i++){
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    text += content.items.map(x=>x.str).join(' ') + ' ';
+  }
+  return text.toLowerCase();
+}
 
-fileInput.addEventListener('change', async (e)=>{
-  const file = e.target.files[0];
+async function handle(file){
   if(!file) return;
 
-  hideErr();
-
-  // STEP 1: CHECK EXTENSION
+  // Only PDF
   if(!file.name.toLowerCase().endsWith('.pdf')){
-    showErr('ERROR: Only PDF resume allowed. You uploaded: ' + file.name);
+    showErr('❌ Only PDF allowed! Upload your resume as PDF.');
+    return;
+  }
+  if(file.size > 5*1024*1024){
+    showErr('❌ File too big! Max 5MB.');
     return;
   }
 
-  load.style.display='block';
-  out.style.display='none';
+  err.classList.add('hidden');
+  load.classList.remove('hidden');
+  res.classList.add('hidden');
 
   try{
-    const data = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument(data).promise;
-    let text = '';
-    for(let i=1; i<=pdf.numPages; i++){
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      text += content.items.map(s=>s.str).join(' ') + ' ';
-    }
-    text = text.toLowerCase();
+    const text = await getText(file);
 
-    // STEP 2: CHECK IF IT IS REALLY A RESUME
-    const hasResumeWord = text.includes('resume') || text.includes('curriculum') || text.includes('cv') || text.includes('experience') || text.includes('education') || text.includes('skills');
+    // REAL RESUME VERIFICATION - Neat & Strict
+    const hasResumeKeywords = ['skill','education','experience','project','work','university','college'].filter(k=>text.includes(k)).length;
+    const isTooShort = text.length < 250;
 
-    if(text.length < 100 ||!hasResumeWord){
-      showErr('ERROR: "' + file.name + '" is NOT a resume. This PDF has no resume content. Please upload only your resume PDF.');
+    if(isTooShort || hasResumeKeywords < 2){
+      showErr('❌ "'+file.name+'" is NOT a valid resume! ResuQora detected non-resume content. Please upload only a real resume PDF.');
       return;
     }
 
-    // STEP 3: IT IS A REAL RESUME - CALCULATE
-    load.style.display='none';
-    out.style.display='block';
+    // ATS Scoring - Accurate Calculation
+    let score = 0;
+    let checks = [];
 
-    let score = 40;
-    let list = [];
-    if(text.includes('@')){ score+=15; list.push('✓ Email found'); } else list.push('✗ Email missing');
-    if(text.match(/[0-9]{10}/)){ score+=15; list.push('✓ Phone found'); } else list.push('✗ Phone missing');
-    if(text.includes('skill')){ score+=10; list.push('✓ Skills found'); } else list.push('✗ Skills missing');
-    if(text.includes('experience') || text.includes('project')){ score+=10; list.push('✓ Experience/Projects found'); }
-    if(text.includes('education')){ score+=10; list.push('✓ Education found'); }
+    const add = (cond, label, points) => {
+      if(cond){ score += points; checks.push({ok:1,label}); }
+      else checks.push({ok:0,label});
+    };
 
-    if(score>95) score=95;
+    add(text.includes('@') && text.includes('.'), 'Email Found', 10);
+    add(/\d{10}/.test(text) || text.includes('+91'), 'Phone Found', 10);
+    add(text.includes('linkedin.com') || text.includes('linkedin'), 'LinkedIn', 8);
+    add(text.includes('skill'), 'Skills Section', 12);
+    add(text.includes('experience') || text.includes('work history'), 'Experience Section', 12);
+    add(text.includes('education') || text.includes('bachelor') || text.includes('master'), 'Education Section', 12);
+    add(text.includes('project'), 'Projects Section', 8);
+    add(['java','python','react','javascript','sql','node','html','css','aws','git'].some(k=>text.includes(k)), 'Technical Keywords', 10);
+    add(text.split(/\s+/).length > 150 && text.split(/\s+/).length < 800, 'Ideal Resume Length', 8);
+    add(!text.includes('lorem ipsum') &&!text.includes('dummy'), 'Original Content', 10);
 
-    document.getElementById('sc').innerText = score + '%';
-    document.getElementById('bar').style.width = score + '%';
-    document.getElementById('checks').innerHTML = list.join('<br>');
-    document.getElementById('fname').innerText = 'Verified: ' + file.name;
+    if(score > 96) score = 96;
+
+    // Show Result
+    load.classList.add('hidden');
+    res.classList.remove('hidden');
+
+    document.getElementById('score').textContent = score + '%';
+    document.getElementById('file-name').textContent = 'Verified by ResuQora: ' + file.name;
+
+    const title = document.getElementById('score-title');
+    const sub = document.getElementById('score-sub');
+
+    if(score >= 85){ title.textContent = 'Excellent!'; sub.textContent = 'ResuQora says: Top 10% ATS Ready!'; }
+    else if(score >= 65){ title.textContent = 'Good Job!'; sub.textContent = 'ResuQora says: Almost ATS ready, fix few issues'; }
+    else { title.textContent = 'Needs Work!'; sub.textContent = 'ResuQora says: Add missing sections to improve'; }
+
+    const bar = document.getElementById('bar');
+    const offset = 251 - (251 * score / 100);
+    bar.style.strokeDashoffset = offset;
+    bar.style.stroke = score >= 80? '#22c55e' : score >= 60? '#f59e0b' : '#ef4444';
+
+    document.getElementById('checks').innerHTML = checks.map(c=>
+      `<div class="ck ${c.ok?'ok':'bad'}">${c.ok?'✅':'❌'} ${c.label}</div>`
+    ).join('');
 
   }catch(e){
-    showErr('ERROR: Cannot read this PDF. Please upload a normal text PDF resume, not a scanned image.');
+    console.error(e);
+    showErr('❌ Cannot read this PDF. Please upload a text-based resume PDF (not scanned image).');
   }
-});
+}
