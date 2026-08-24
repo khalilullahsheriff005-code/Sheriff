@@ -1,18 +1,37 @@
-body{margin:0;font-family:Arial, sans-serif;background:#f1f5f9}
-.top{background:#fff;padding:15px;text-align:center;font-weight:900;border-bottom:1px solid #ddd}
-.top span{color:blue}
-.main{max-width:600px;margin:30px auto;padding:15px;text-align:center}
-.main h1{margin:0}
-.main p{color:#666}
-.box{background:#fff;border-radius:12px;padding:20px;margin-top:20px;text-align:left;border:1px solid #ddd}
-#drop{border:2px dashed #999;border-radius:10px;padding:30px;text-align:center;cursor:pointer}
-#drop:hover{border-color:blue;background:#f0f7ff}
-#drop small{display:block;color:#999;margin-top:5px}
-#err{background:#ffe2e2;color:#b91c1c;padding:10px;border-radius:6px;margin-top:15px;display:none;font-size:13px;font-weight:bold}
-#load{display:none;text-align:center;margin-top:15px;color:blue;font-weight:bold}
-#out{display:none;margin-top:20px;border-top:1px solid #eee;padding-top:15px}
-.bar-bg{width:100%;height:10px;background:#eee;border-radius:10px;margin-top:10px}
-#bar{height:10px;width:0%;background:green;border-radius:10px}
-footer{background:#fff;border-top:1px solid #ddd;padding:25px;text-align:center;margin-top:60px}
-.d1{font-family:monospace;font-weight:bold;letter-spacing:2px;margin:0}
-.d2{font-size:12px;color:#666;margin:5px 0 0 0}
+*{font-family:'Inter',sans-serif;box-sizing:border-box}
+body{margin:0;background:#f8fafc;color:#0f172a}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:24px;letter-spacing:-1.5px}.logo span{color:#7c3aed}
+.badge{background:#f5f3ff;color:#7c3aed;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;border:1px solid #ede9fe}
+main{max-width:720px;margin:36px auto;padding:0 20px;text-align:center}
+main h1{font-weight:900;font-size:38px;line-height:1.05;margin:0;letter-spacing:-1px} main h1 span{color:#7c3aed}
+.sub{color:#64748b;font-size:14px;margin:12px 0 26px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:24px;padding:26px;box-shadow:0 20px 40px rgba(0,0,0,.06);text-align:left}
+#drop-zone{border:2px dashed #cbd5e1;border-radius:18px;padding:44px;text-align:center;cursor:pointer;transition:.2s}
+#drop-zone:hover{border-color:#7c3aed;background:#f5f3ff}
+.icon{width:52px;height:52px;background:#ede9fe;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px}
+#drop-zone b{font-size:15px}
+#drop-zone small{display:block;color:#94a3b8;font-size:11px;margin-top:6px}
+#error-msg{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:14px;border-radius:12px;text-align:center;font-weight:700;font-size:13px;margin-top:16px}
+#loader{text-align:center;padding:24px 0}
+.spin{width:32px;height:32px;border:3px solid #ede9fe;border-top-color:#7c3aed;border-radius:50%;margin:0 auto 10px;animation:s 1s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
+#loader p{font-size:13px;color:#7c3aed;font-weight:700}
+.score-row{display:flex;gap:20px;align-items:center}
+.circle{width:92px;height:92px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.circle svg{position:absolute;transform:rotate(-90deg);width:92px;height:92px}
+.circle circle{fill:none;stroke-width:7;stroke:#e2e8f0}
+#bar{stroke:#7c3aed;stroke-dasharray:251;stroke-dashoffset:251;transition:1s cubic-bezier(.4,0,.2,1)}
+#score{font-weight:900;font-size:22px}
+#score-title{margin:0;font-weight:900;font-size:20px}
+#score-sub{margin:4px 0;font-size:13px;color:#64748b}
+#file-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:#94a3b8}
+#checks{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ck{border:1px solid #e2e8f0;border-radius:11px;padding:10px 11px;font-size:12px;font-weight:700;display:flex;gap:7px;align-items:center}
+.ck.ok{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}.ck.bad{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
+.reset-btn{width:100%;margin-top:18px;padding:12px;background:#0f172a;color:#fff;border:0;border-radius:12px;font-weight:800;font-size:13px;cursor:pointer}
+.reset-btn:hover{background:#1e293b}
+footer{text-align:center;margin-top:80px;background:#fff;border-top:1px solid #e2e8f0;padding:32px}
+.footer-line{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:12px}.footer-line span{height:1px;width:40px;background:#e2e8f0}.footer-line p{font-family:'JetBrains Mono',monospace;font-size:10px;color:#94a3b8;letter-spacing:2px;margin:0}
+footer h4{font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:1px;margin:0;font-size:15px}
+footer p{font-size:11px;color:#64748b;margin:6px 0 0}
+.hidden{display:none!important}
