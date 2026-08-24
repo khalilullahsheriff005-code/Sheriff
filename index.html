@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ResuQora - Resume Only ATS</title>
-<!-- Adsterra Visit Earning - Popunder + Social Bar -->
-<script src="https://pl31013132.profitableratecpmnetwork.com/fa/d7/bc/fad7bc6ba6825b249c707ed7bda59e73.js"></script>
-<script src="https://pl31013133.profitableratecpmnetwork.com/3b/ed/b0/3bedb092ed7663f6777828a5332ec0c8.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -50,7 +47,7 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:rgba(10,10,
 <header><div class="logo">RESUQORA</div><nav><button class="nav-btn active" onclick="go('home')">Home</button><button class="nav-btn" onclick="go('check')">Check</button><button class="nav-btn" onclick="go('report')">Report</button></nav></header>
 <div class="main">
 <div id="home" class="page active">
-<div style="display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:20px;flex-wrap:wrap"><div><h1 style="font-size:48px;">Resume Only<br><span style="color:var(--accent)">ATS Check</span></h1><p style="margin-top:12px;color:var(--muted);font-size:12.5px;max-width:460px;line-height:1.6;font-weight:400">Strict resume verification. Non-resume files auto blocked. Visual branded PDF report. Same rich design.</p></div><button class="btn" style="width:auto;padding:0 22px;height:40px" onclick="go('check')">Upload Resume →</button></div>
+<div style="display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:20px;flex-wrap:wrap"><div><h1 style="font-size:48px;">Resume Only<br><span style="color:var(--accent)">ATS Check</span></h1><p style="margin-top:12px;color:var(--muted);font-size:12.5px;max-width:460px;line-height:1.6;font-weight:400">Strict resume verification. Non-resume files auto blocked. Visual branded PDF report.</p></div><button class="btn" style="width:auto;padding:0 22px;height:40px" onclick="go('check')">Upload Resume →</button></div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px"><div class="card" style="border-color:rgba(34,197,94,.3)"><div style="font-size:15px;font-weight:800;letter-spacing:-0.3px;color:#86efac">✅ Resume Only</div><p style="font-size:10.5px;color:var(--muted);margin-top:4px;font-weight:500">4+ signals required</p></div><div class="card"><div style="font-size:15px;font-weight:800;letter-spacing:-0.3px">🚫 Auto Block</div><p style="font-size:10.5px;color:var(--muted);margin-top:4px;font-weight:500">Non-resume blocked</p></div><div class="card"><div style="font-size:15px;font-weight:800;letter-spacing:-0.3px">📄 Visual PDF</div><p style="font-size:10.5px;color:var(--muted);margin-top:4px;font-weight:500">Branded report</p></div></div>
 </div>
 <div id="check" class="page">
@@ -68,99 +65,4 @@ footer{margin-top:auto;border-top:1px solid var(--border);background:rgba(10,10,
 </footer>
 
 <script>
-// === ResuQora Earning Integration - Adsterra Direct Link ===
-const AD_LINK = "https://www.profitableratecpmnetwork.com/z98dcfasmh?key=928970f52410e33a5b566b8ad6e8d12b";
-let adShown = false;
-function triggerAdOnce() {
-  if(adShown) return;
-  adShown = true;
-  setTimeout(()=>{ window.open(AD_LINK, '_blank'); }, 800);
-  setTimeout(()=>{ adShown = false; }, 120000);
-}
-</script>
-
-<script>
-pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-function autoTheme(s=null){let a='#7c3aed';if(s!==null){a=s>=80?'#22c55e':s>=65?'#7c3aed':s>=50?'#f59e0b':'#ef4444';}document.body.style.setProperty('--accent',a);}
-autoTheme();setInterval(()=>autoTheme(window._last?window._last.score:null),4000);
-function go(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===p));}
-const fileIn=document.getElementById('file'),drop=document.getElementById('drop'),err=document.getElementById('err'),prog=document.getElementById('prog');
-drop.onclick=()=>fileIn.click();drop.ondragover=e=>{e.preventDefault();drop.style.borderColor='var(--accent)';drop.style.background='rgba(124,58,237,.08)';};drop.ondragleave=()=>{drop.style.borderColor='';drop.style.background='';};drop.ondrop=e=>{e.preventDefault();drop.style.borderColor='';drop.style.background='';handle(e.dataTransfer.files[0]);};fileIn.onchange=e=>handle(e.target.files[0]);
-function showErr(m){err.innerHTML=m;err.style.display='block';prog.style.display='none';}
-async function getText(f){const b=await f.arrayBuffer();const pdf=await pdfjsLib.getDocument({data:b}).promise;let t='';for(let i=1;i<=Math.min(pdf.numPages,5);i++){const pg=await pdf.getPage(i);const c=await pg.getTextContent();t+=c.items.map(o=>o.str).join(' ')+' ';}return t;}
-function isResume(text){const low=text.toLowerCase();const words=text.trim().split(/\s+/).filter(w=>w.length>1).length;const block=['marksheet','grade card','hall ticket','transcript','aadhar','aadhaar','pan card','invoice','receipt','salary slip','question paper','admit card','birth certificate','caste certificate'];const f=block.filter(k=>low.includes(k));if(f.length>0)return {ok:false,reason:`🚫 Blocked: ${f[0]} detected, not a resume`};const s={skills:low.includes('skill'),exp:low.includes('experience')||low.includes('work'),edu:low.includes('education')||low.includes('university')||low.includes('college'),email:/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/.test(low),proj:low.includes('project'),sum:low.includes('summary')||low.includes('objective')};const c=Object.values(s).filter(Boolean).length;if(words<80)return {ok:false,reason:`🚫 Too short: ${words} words only. Resume needs 80+`};if(c<4)return {ok:false,reason:`🚫 Not a resume: ${c}/6 signals only. Need Skills, Experience, Education, Email`};return {ok:true,count:c,words};}
-async function handle(file){
- if(!file)return;if(!file.name.toLowerCase().endsWith('.pdf')){showErr('🚫 PDF only');return;}if(file.size>5*1024*1024){showErr('🚫 Max 5MB');return;}
- err.style.display='none';prog.style.display='block';document.getElementById('checkMain').innerHTML=`<div class="panel" style="padding:30px;text-align:center"><div style="font-size:11px;color:var(--muted)">Verifying resume... ${file.name}</div><div class="progress" style="display:block;margin-top:12px"><i></i></div></div>`;
- try{
-  const raw=await getText(file);const chk=isResume(raw);if(!chk.ok){showErr(chk.reason);document.getElementById('checkMain').innerHTML=`<div class="panel" style="padding:40px;text-align:center;border-color:rgba(239,68,68,.3)"><div style="font-size:28px">🚫</div><b style="color:#fca5a5;font-weight:800">Blocked - Not Resume</b><p style="font-size:11px;color:var(--muted);margin-top:8px">${chk.reason}</p><p style="font-size:10px;color:var(--muted);margin-top:8px">Upload RESUME only</p></div>`;return;}
-  const low=raw.toLowerCase();const jdLow=document.getElementById('jd').value.toLowerCase();const hasJD=jdLow.length>30;
-  const tech=['javascript','typescript','python','java','react','next.js','node','sql','mongodb','postgresql','aws','docker','git','api','rest','graphql','html','css','tailwind','redux','jest','agile','dsa','system design'];let matched=[],missing=[],kw=0,jdPct=0;
-  if(hasJD){const toks=[...new Set(jdLow.split(/\W+/).filter(w=>w.length>3))].slice(0,50);matched=toks.filter(k=>low.includes(k));missing=toks.filter(k=>!low.includes(k));kw=toks.length?Math.round((matched.length/toks.length)*40):0;jdPct=toks.length?Math.round((matched.length/toks.length)*100):0;}
-  else{matched=[...new Set(tech)].filter(k=>low.includes(k));missing=tech.filter(k=>!low.includes(k)).slice(0,12);kw=Math.min(40,Math.round((matched.length/11)*40));}
-  let total=kw+12+12+6+5;if(total>100)total=100;
-  window._last={file:file.name,wc:chk.words,score:total,matched,missing,raw:raw.slice(0,2000),jdPct,count:chk.count};prog.style.display='none';autoTheme(total); if(typeof triggerAdOnce==='function') triggerAdOnce();
-  let highlighted=raw.slice(0,1300);matched.slice(0,12).forEach(m=>{try{highlighted=highlighted.replace(new RegExp(`(${m.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<span class="hl">$1</span>');}catch{}});
-  document.getElementById('checkMain').innerHTML=`
-  <div class="panel" style="border-color:rgba(34,197,94,.3)"><div style="padding:18px">
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px"><span style="width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 8px #22c55e;display:inline-block"></span><b style="font-size:12px;color:#86efac;font-weight:800">✅ Resume Verified • ${total}%</b><span style="font-size:10px;color:var(--muted);font-weight:500">• ${chk.count}/6 signals • ${chk.words}w • JD ${jdPct||0}%</span></div>
-    <div class="score-wrap"><div class="ring" style="--p:${total}%"><div class="inner">${total}%</div></div><div style="flex:1"><h2 style="font-size:20px;">${total>=80?'Excellent Resume':'Good Resume'}</h2><p style="font-size:11px;color:var(--muted);margin-top:4px;font-weight:400">${file.name} • Verified • ${matched.length} skills matched</p><div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap">${matched.slice(0,8).map(m=>`<span class="code hit">${m}</span>`).join('')}${missing.slice(0,2).map(m=>`<span class="code">${m}?</span>`).join('')}</div></div></div>
-    <div class="preview">${highlighted}</div>
-    <div style="margin-top:12px;padding:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:11px;font-weight:700">Found (${matched.length})</b><button class="btn2" style="height:26px;font-size:10px" onclick="navigator.clipboard.writeText(window._last.matched.join(', '));alert('Copied!')">Copy</button></div><div style="margin-top:6px">${matched.map(m=>`<span class="code hit">${m}</span>`).join('')}</div><div style="margin-top:10px;display:flex;justify-content:space-between"><b style="font-size:11px;font-weight:700">Missing (${missing.length})</b><button class="btn2" style="height:26px;font-size:10px" onclick="navigator.clipboard.writeText(window._last.missing.join(', '));alert('Copied!')">Copy</button></div><div style="margin-top:6px">${missing.slice(0,15).map(m=>`<span class="code">${m}</span>`).join('')}</div></div>
-    <div class="actions"><button class="btn2 primary" onclick="go('report')">View Full Report →</button><button class="btn2" onclick="downloadVisual()" style="background:#7c3aed;color:#fff;border-color:#7c3aed;font-weight:700">📄 Download Visual PDF</button></div>
-  </div></div>`;
-  document.getElementById('reportEmpty').classList.add('hidden');document.getElementById('reportFull').classList.remove('hidden');
-  document.getElementById('reportFull').innerHTML=`<div class="panel" style="border-color:rgba(34,197,94,.3)"><div style="padding:18px"><div class="score-wrap"><div class="ring" style="--p:${total}%"><div class="inner">${total}%</div></div><div><h2 style="font-size:24px;">${total}% • Verified Resume</h2><p style="font-size:11px;color:var(--muted);margin-top:2px;font-weight:400">${file.name} • ${chk.count}/6 signals • ${chk.words}w • JD ${jdPct||0}% match</p><div style="margin-top:10px"><button class="btn" style="width:auto;background:#7c3aed;color:#fff;padding:0 18px;font-weight:700" onclick="downloadVisual()">📄 Download Visual Branded PDF</button></div></div></div><div class="preview" style="margin-top:14px">${highlighted}</div><div style="margin-top:12px;padding:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px"><b style="font-size:11px;font-weight:700">Found:</b> ${matched.map(m=>`<span class="code hit">${m}</span>`).join('')}<div style="margin-top:8px"><b style="font-size:11px;font-weight:700">Missing:</b> ${missing.slice(0,12).map(m=>`<span class="code">${m}</span>`).join('')}</div></div></div></div>`;
-  go('report');
- }catch(e){showErr('🚫 Cannot read PDF - text based PDF upload pannu');prog.style.display='none';}
-}
-function downloadVisual(){
- if(typeof triggerAdOnce==='function') triggerAdOnce();
- const d=window._last;if(!d)return;const {jsPDF}=window.jspdf;const doc=new jsPDF();
- doc.setFillColor(8,8,10);doc.rect(0,0,210,297,'F');
- doc.setFillColor(18,18,22);doc.rect(0,0,210,32,'F');
- doc.setFillColor(124,58,237);doc.rect(0,0,210,3,'F');
- doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(255,255,255);doc.text('RESUQORA',12,16);
- doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(180,180,190);doc.text('Resume Only Verified • ATS Intelligence • Visual Report',12,22);
- doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(124,58,237);doc.text('khalilullahsheriff • Since 2026',150,22);
- doc.setFillColor(34,197,94);doc.roundedRect(12,36,186,12,3,3,'F');
- doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(0,50,20);doc.text(`✓ VERIFIED RESUME • ${d.count}/6 SIGNALS • ${d.wc} WORDS • JD ${d.jdPct||0}% MATCH`,14,44);
- doc.setFillColor(24,24,28);doc.setDrawColor(60,60,70);doc.roundedRect(12,52,186,36,5,5,'FD');
- doc.setFillColor(d.score>=80?34:124,d.score>=80?197:58,d.score>=80?94:237);doc.circle(30,70,14,'F');
- doc.setFillColor(8,8,10);doc.circle(30,70,11,'F');
- doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(255,255,255);doc.text(d.score+'%',30,73,null,'center');
- doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(255,255,255);doc.text(d.score>=80?'Excellent Resume':d.score>=65?'Good Resume':'Needs Work',54,66);
- doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(170,170,180);doc.text(`${d.file} • Verified • ${new Date().toLocaleDateString()}`,54,74);
- doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(220,220,230);doc.text('JD MATCH SCORE',12,96);
- doc.setFillColor(40,40,50);doc.roundedRect(12,99,110,8,4,4,'F');
- doc.setFillColor(d.jdPct>=70?34:124,d.jdPct>=70?197:58,d.jdPct>=70?94:237);doc.roundedRect(12,99,Math.max(6,(d.jdPct||0)*1.1),8,4,4,'F');
- doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(255,255,255);doc.text(`${d.jdPct||0}% Match`,14,104);
- let y=116; doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(255,255,255);doc.text(`✓ Found Skills (${d.matched.length})`,12,y);y+=8;
- doc.setFont('helvetica','bold');doc.setFontSize(7.5); let x=12;
- d.matched.slice(0,20).forEach(m=>{
-   const w=doc.getTextWidth(m)+12; if(x+w>195){y+=9;x=12;}
-   doc.setFillColor(20,80,40);doc.setDrawColor(34,197,94);doc.roundedRect(x,y-6,w,8,3,3,'FD');
-   doc.setTextColor(134,239,172);doc.text(m,x+5,y); x+=w+4;
- });
- y+=14;
- doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(255,120,120);doc.text(`✗ Missing Skills (${d.missing.length}) - Add to reach 80%+`,12,y);y+=8;
- doc.setFont('helvetica','bold');doc.setFontSize(7.5); x=12;
- d.missing.slice(0,18).forEach(m=>{
-   const w=doc.getTextWidth(m)+12; if(x+w>195){y+=9;x=12;}
-   doc.setFillColor(70,25,25);doc.setDrawColor(120,40,40);doc.roundedRect(x,y-6,w,8,3,3,'FD');
-   doc.setTextColor(252,165,165);doc.text(m,x+5,y); x+=w+4;
- });
- if(y<235){
-   doc.setFillColor(28,22,55);doc.setDrawColor(124,58,237);doc.roundedRect(12,y+10,186,28,4,4,'FD');
-   doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(167,139,250);doc.text('💡 Pro Tip to reach 80%+ :',14,y+18);
-   doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(210,210,230);
-   doc.text(`Add these keywords: ${d.missing.slice(0,5).join(', ')}`,14,y+24,{maxWidth:180});
-   doc.text(`Current ${d.score}% → After adding: ${Math.min(95,d.score+15)}%+ expected`,14,y+30,{maxWidth:180});
- }
- doc.setFillColor(18,18,22);doc.rect(0,285,210,12,'F');
- doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(130,130,140);doc.text(`khalilullahsheriff • Since 2026 • ResuQora • Visual Branded Report • ${d.file}`,12,292);
- doc.save(`ResuQora_VISUAL_${d.score}pct_${d.file.replace(/[^a-z0-9]/gi,'_')}.pdf`);
-}
-</script>
-</body>
-</html>
+// === FIXED EARNING - NO BLOCK ON UPLOAD,
