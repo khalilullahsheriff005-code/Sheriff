@@ -2,41 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ResuQora - Real ATS Engine v4</title>
+<title>ResuQora v6 - Pro ATS with JD Match</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="bg-grid"></div><div class="orb orb1"></div><div class="orb orb2"></div>
-<header><div class="logo"><span>R</span> ResuQora</div><div class="live"><i></i> ATS ENGINE v4 REAL</div></header>
+<header>
+<div class="logo"><div class="box">R</div>RESU<span>QORA</span> <small>v6 PRO</small></div>
+<div class="actions"><button id="theme-btn" onclick="toggleTheme()">🌙</button><div class="badge">RESUME ONLY 🔒</div></div>
+</header>
 <main>
-<div class="title-wrap">
-<h1>Industry Grade <span>ATS Check</span><br>11 Performance Metrics</h1>
-<p>Real ATS like companies use - not fake 95%. Only resume allowed.</p>
+<h1>Real <span>ATS</span> + <span>JD Match</span> + <span>Report</span></h1>
+<p class="sub">Only Resume Allowed • JD Matching • PDF Report • History • Real Score</p>
+
+<div class="card">
+<div class="jd-box">
+<label>📋 Paste Job Description (Optional - for better matching)</label>
+<textarea id="jd-input" placeholder="Paste job description here... e.g., Looking for React Developer with JavaScript, Node.js, AWS..."></textarea>
 </div>
-<div class="app">
-<div id="drop-zone" class="drop">
-<div class="drop-icon">⚡</div>
-<h3>Drop Resume PDF Here</h3>
-<p>Strict resume-only verification • 11 ATS checks • Max 5MB</p>
-<input type="file" id="file-input" hidden accept=".pdf">
-</div>
+
+<div id="drop-zone"><div class="ic">📄</div><b>Drop Resume PDF Only</b><small>Skills, Experience, Education, Email must • Max 5MB</small><input type="file" id="file-input" hidden accept=".pdf"></div>
+
 <div id="error-msg" class="hidden"></div>
-<div id="loader" class="hidden"><div class="loader-line"><div class="loader-fill"></div></div><div class="loader-text">ResuQora running 11 ATS performance checks...</div></div>
+<div id="loader" class="hidden"><div class="bar"><div></div></div><p>ResuQora v6 analyzing + JD matching...</p></div>
+
 <div id="result" class="hidden">
-<div class="res-top">
-<div class="ring-wrap"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle id="bar" class="fg" cx="60" cy="60" r="52"/></svg><div class="ring-center"><b id="score">0%</b><small>ATS SCORE</small></div></div>
-<div class="res-meta"><h2 id="score-title"></h2><p id="score-sub"></p><code id="file-name"></code><div class="perf"><span>⚡ <b id="time">0ms</b></span><span>📄 <b id="words">0</b> words</span><span>📑 <b id="pages">0</b> pages</span></div></div>
-</div>
-<div class="ats-label">11 ATS PERFORMANCE METRICS</div>
+<div class="top"><div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="bg"/><circle id="bar" cx="60" cy="60" r="52" class="fg"/></svg><div class="txt"><b id="score">0%</b><small>ATS</small></div></div><div><h2 id="score-title"></h2><p id="score-sub"></p><code id="file-name"></code><div class="stat"><span>⚡ <b id="time">0ms</b></span><span>📝 <b id="words">0</b> w</span><span id="jd-match-stat"></span></div><div class="btns"><button class="btn-dl" onclick="downloadReport()">📄 Download Report</button></div></div></div>
+
+<div id="jd-result" class="jd-result hidden"></div>
 <div id="checks" class="grid"></div>
 <div id="tips" class="tips"></div>
-<button class="reset" onclick="location.reload()">↺ Check Another Resume</button>
+<div id="history" class="history"></div>
+<button onclick="location.reload()" class="reset">Check Another Resume</button>
 </div>
 </div>
 </main>
-<footer><div class="footer-inner"><h4>2026@khalilullahsheriff</h4><p>Built by <b>khalilullahsheriff</b> • ResuQora v4 • 11 ATS Metrics • Real Engine • 100% Original Brand</p></div></footer>
+<footer><h4>2026@khalilullahsheriff</h4><p>Developed by <b>khalilullahsheriff</b> • ResuQora v6 Pro • JD Match + Report + History</p></footer>
 <script src="script.js"></script>
 </body>
 </html>
