@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
     let activeResumeText = "";
+    let activePages = 1;
     const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
     const navItems = document.querySelectorAll('.n-item');
@@ -48,18 +49,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 const t = text.toLowerCase();
                 const invalidKeywords = ["syllabus", "question bank", "marksheet", "exam timetable"];
                 if (invalidKeywords.some(word => t.includes(word)) &&!t.includes("resume") &&!t.includes("curriculum")) {
-                    alert("Access Denied: Please upload a Resume, not a question paper.");
+                    alert("Access Denied: Please upload a Resume.");
                     return;
                 }
                 const sections = ["education", "experience", "skills", "projects", "summary", "contact"];
                 const foundSections = sections.filter(s => t.includes(s));
                 if (foundSections.length < 2) {
-                    alert("⚠️ Not a proper Resume: Add Education, Skills, Experience sections.");
+                    alert("⚠️ Not a proper Resume: Missing sections.");
                     return;
                 }
                 activeResumeText = text;
-                activeResumeText.pages = pageCount;
-                alert("✅ Resume loaded! Click Analyze");
+                activePages = pageCount;
+                console.log("Resume loaded, pages:", activePages);
+                alert("✅ Resume loaded! Now click Analyze");
             } catch (err) {
                 console.error(err);
                 alert("Error reading PDF.");
@@ -89,22 +91,21 @@ document.addEventListener("DOMContentLoaded", function() {
         if(!activeResumeText) return alert("Please upload a valid resume PDF first!");
         const t = activeResumeText.toLowerCase();
 
-        // FIXED DETECTION
         const hasEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/.test(t);
-        const hasPhone = /(\+91[\s-]?)?[6-9]\d{9}|\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}/.test(t);
+        const hasPhone = /(\+91[\s-]?)?[6-9]\d{9}|\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}|\d{10}/.test(t.replace(/\s/g,''));
         const hasLinks = (t.includes("linkedin") || t.includes("github") || t.includes("portfolio"));
 
         const audit = {
             core: {
                 "Contact Info": (hasEmail && hasPhone)? 100 : (hasEmail || hasPhone? 60 : 20),
-                "Skills Integrity": t.includes("skills")? 90 : 30,
-                "Work/Projects": (t.includes("experience") || t.includes("projects"))? 90 : 25,
-                "Education": t.includes("education")? 90 : 30
+                "Skills Integrity": t.includes("skills")? 90 : 35,
+                "Work/Projects": (t.includes("experience") || t.includes("projects"))? 90 : 30,
+                "Education": t.includes("education")? 90 : 35
             },
             format: {
                 "Digital Links": hasLinks? 95 : 45,
-                "Length Optimization": activeResumeText.pages === 1? 95 : (activeResumeText.pages === 2? 75 : 35),
-                "ATS Readability": (t.match(/[•●\-\*]/g) || []).length > 3? 90 : 55
+                "Length Optimization": activePages === 1? 95 : (activePages === 2? 75 : 35),
+                "ATS Readability": (t.match(/[•●\-\*]/g) || []).length > 3? 90 : 60
             }
         };
 
@@ -121,9 +122,8 @@ document.addEventListener("DOMContentLoaded", function() {
         drawGrid('coreGrid', audit.core, 'var(--c1)');
         drawGrid('structGrid', audit.format, 'var(--c2)');
 
-        // More realistic content depth based on word count
         const wordCount = activeResumeText.split(/\s+/).length;
-        const contentScore = wordCount > 400? 85 : wordCount > 250? 70 : 45;
+        const contentScore = wordCount > 400? 85 : wordCount > 250? 70 : 50;
         drawGrid('qualGrid', { "Content Depth": contentScore, "Formatting": audit.format["ATS Readability"] }, 'var(--c3)');
 
         let total = 0, count = 0;
@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         const score = Math.round(total / count);
+        console.log("Final Score:", score, "Pages:", activePages);
         document.getElementById('finalScore').innerText = score;
         document.getElementById('nav-report').click();
     };
