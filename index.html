@@ -4,111 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ResumeFit - Free ATS Resume Checker</title>
+<meta name="description" content="Free ATS Resume Checker - Check ATS score free">
 <meta name="author" content="khalilullahsheriff">
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.tailwindcss.com"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=JetBrains+Mono:wght@700&display=swap');
-body{font-family:'Inter', sans-serif}
-.mono{font-family:'JetBrains Mono', monospace}
-</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 </head>
 <body class="bg-[#f8fafc] text-slate-900">
 
-<header class="bg-white border-b p-4 flex justify-between items-center sticky top-0">
+<header class="bg-white border-b p-4 flex justify-between items-center sticky top-0 z-50">
 <div class="font-black text-xl">RESUME<span class="text-blue-600">FIT</span></div>
-<div class="flex items-center gap-2">
-<span class="hidden md:block mono text-[11px] border px-2.5 py-1 rounded-full bg-slate-50 text-slate-600">2026@khalilullahsheriff</span>
-<div class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">Free ATS Check</div>
-</div>
+<div class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">ATS Check</div>
 </header>
 
-<main class="max-w-4xl mx-auto p-6 text-center mt-8">
+<main class="max-w-3xl mx-auto p-6 text-center mt-10">
 <h1 class="text-4xl md:text-5xl font-black mb-3">Free <span class="text-blue-600">ATS Resume</span> Checker</h1>
-<p class="text-slate-500 mb-8">Upload your resume & check ATS score in 5 seconds</p>
+<p class="text-slate-500 mb-8">Upload only resume - we verify content then give score</p>
 
-<div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border text-left">
-  <div id="drop-zone" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 transition">
-    <p class="font-bold">📄 Drop Resume Here or Click to Upload</p>
-    <p class="text-xs text-slate-400 mt-1">Only PDF, DOC, DOCX allowed (Resume Only - Max 5MB)</p>
-    <input type="file" id="file-input" hidden accept=".pdf,.doc,.docx">
+<div class="bg-white rounded-2xl shadow-xl p-6 border text-left">
+  <div id="drop-zone" class="drop-zone">
+    <div class="text-3xl mb-2">📄</div>
+    <p class="font-bold">Drop Resume Here or Click to Upload</p>
+    <p class="text-xs text-slate-400 mt-2">Only Resume Files - PDF, DOCX (Max 5MB)</p>
+    <input type="file" id="file-input" hidden accept=".pdf,.docx,.doc">
   </div>
 
+  <div id="status" class="hidden mt-4 text-center text-sm font-bold p-3 rounded-xl"></div>
   <p id="error-msg" class="hidden mt-4 text-sm text-red-600 font-bold bg-red-50 border border-red-200 p-3 rounded-xl text-center"></p>
 
-  <div id="result" class="mt-6 hidden">
-    <h3 class="font-bold">ATS Score: <span id="score" class="text-blue-600">0%</span></h3>
-    <div class="w-full bg-slate-200 rounded-full h-3 mt-2">
-      <div id="score-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-700" style="width: 0%"></div>
+  <div id="result" class="hidden mt-6 border-t pt-6">
+    <h3 class="font-black text-lg">ATS Score: <span id="score" class="text-blue-600">0%</span></h3>
+    <div class="w-full bg-slate-200 rounded-full h-3 mt-3">
+      <div id="score-bar" class="h-3 rounded-full transition-all duration-700" style="width:0%"></div>
     </div>
-    <p id="feedback" class="text-sm text-slate-600 mt-3"></p>
-    <p id="file-name" class="text-xs text-slate-400 mt-2 mono"></p>
+    <div id="checks" class="mt-4 space-y-2 text-sm"></div>
+    <p id="file-name" class="text-xs text-slate-400 mt-4 mono"></p>
   </div>
 </div>
 </main>
 
-<footer class="mt-16 border-t bg-white">
-  <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
-    <div class="text-left">
-      <p class="font-black text-sm">RESUME<span class="text-blue-600">FIT</span></p>
-      <p class="text-[11px] text-slate-400 mt-1">Free ATS Resume Checker for Freshers</p>
-    </div>
-    <div class="flex flex-col items-center md:items-end">
-      <div class="inline-flex items-center gap-2 border border-slate-200 bg-slate-50 rounded-full px-4 py-1.5">
-        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-        <span class="mono font-bold text-slate-800 text-[12px] tracking-wider">2026@khalilullahsheriff</span>
-      </div>
-      <p class="text-[11px] text-slate-500 mt-2">Developer: <span class="font-bold text-slate-700">khalilullahsheriff</span> • Since 2026</p>
-    </div>
+<footer class="footer">
+  <div class="footer-line">
+    <div class="line"></div>
+    <span>DEVELOPER</span>
+    <div class="line"></div>
   </div>
+  <p class="dev-name">2026@khalilullahsheriff</p>
+  <p class="dev-sub">Developed by <b>khalilullahsheriff</b> • Since 2026</p>
+  <p class="copyright">© 2026 ResumeFit</p>
 </footer>
 
-<script>
-const dropZone = document.getElementById('drop-zone');
-let fileInput = document.getElementById('file-input');
-const errorMsg = document.getElementById('error-msg');
-const resultDiv = document.getElementById('result');
-const ALLOWED_EXT = ['pdf','doc','docx'];
-
-function showError(msg){
-  errorMsg.textContent = msg;
-  errorMsg.classList.remove('hidden');
-  resultDiv.classList.add('hidden');
-  fileInput.value = '';
-}
-function hideError(){ errorMsg.classList.add('hidden'); }
-
-function handleFile(file){
-  if(!file) return;
-  const ext = file.name.split('.').pop().toLowerCase();
-
-  if(!ALLOWED_EXT.includes(ext)){
-    showError('❌ Invalid File: ' + file.name + ' is not a resume! Only PDF, DOC, DOCX files are allowed.');
-    return;
-  }
-  if(file.size > 5 * 1024 * 1024){
-    showError('❌ File too large! Please upload a file under 5MB.');
-    return;
-  }
-
-  hideError();
-  resultDiv.classList.remove('hidden');
-  document.getElementById('file-name').textContent = 'Valid File: ' + file.name;
-  const score = Math.floor(Math.random()*20)+75;
-  document.getElementById('score').textContent = score + '%';
-  document.getElementById('score-bar').style.width = score + '%';
-  document.getElementById('feedback').textContent = score > 85? 'Great! Your resume is ATS ready.' : 'Add more keywords like Java, Python, Projects to improve score.';
-}
-
-dropZone.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
-dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-blue-500','bg-blue-50'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-blue-500','bg-blue-50'));
-dropZone.addEventListener('drop', (e) => {
-  e.preventDefault();
-  dropZone.classList.remove('border-blue-500','bg-blue-50');
-  if(e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
